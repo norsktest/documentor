@@ -4,6 +4,11 @@
 	"description": "A Svelte component to create beautiful documentation websites.",
 	"author": "NorskTest",
 	"license": "MIT",
+	"homepage": "https://github.com/norsktest/documentor",	
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/norsktest/documentor.git"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",

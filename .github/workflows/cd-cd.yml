@@ -1,0 +1,92 @@
+name: CI/CD Pipeline
+
+on: [ push, pull_request, workflow_dispatch ]
+
+env:
+  HOME_REPO: norsktest/documentor
+
+jobs:
+  ci-lint:
+    name: CI:Lint
+    runs-on: ubuntu-latest
+    env:
+      LINTDIR: ./ghlint
+    steps:
+      # setup environment
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: pnpm ci
+      - run: pnpm lint
+
+  ci-test:
+    name: CI:Test
+    runs-on: ubuntu-latest
+
+
+    steps:
+      # setup environment
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: pnpm ci
+      - run: pnpm test --coverage
+
+      - name: Upload coverage to codecov.io
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN}}
+          fail_ci_if_error: false
+
+  cd:
+    name: CD
+    needs: ci-test
+    runs-on: ubuntu-latest
+    steps:
+      # setup environment
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cleanup
+        run: |
+          rm -rf dist
+          rm -rf build
+
+      - run: pnpm ci
+      - run: pnpm build
+      - run: pnpm package
+
+      - name: Upload packages as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Packages
+          path: dist/
+
+      # - name: Build docs
+      #   run: python setup.py build_sphinx
+
+      # - name: Upload docs as artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: Docs
+      #     path: build/sphinx/html/          
+
+      - name: Deploy to PyPI
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && github.repository == env.HOME_REPO
+        shell: bash
+        run: |
+          pnpm publish  
+
+      - name: Create Github release
+        uses: ncipollo/release-action@v1
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && github.repository == env.HOME_REPO
+        with:
+          artifacts: "dist/*"
+          owner: norsktest
+          repo: documentor
+          token: ${{ secrets.GITHUB_TOKEN }}

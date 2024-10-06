@@ -3,6 +3,13 @@
 A Svelte component to create beautiful documentation websites.
 
 ---
+### publish
+
+```bash
+pnpm publish --access public
+```
+
+---
 
 ## create-svelte
 
