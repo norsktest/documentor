@@ -3,6 +3,11 @@
 A Svelte component to create beautiful documentation websites.
 
 ---
+### vercel
+
+https://documentor-beta.vercel.app/
+
+
 ### publish
 
 ```bash

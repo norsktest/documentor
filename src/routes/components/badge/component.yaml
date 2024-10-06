@@ -1,0 +1,6 @@
+type: component
+name: Badge
+category: widget
+description: A simple badge component
+icon: tags
+created: 2024-01-01

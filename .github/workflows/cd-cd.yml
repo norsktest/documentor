@@ -41,7 +41,7 @@ jobs:
 
 
       - run: pnpm i
-      - run: pnpm test --coverage
+      - run: pnpm test
 
       - name: Upload coverage to codecov.io
 

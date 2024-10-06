@@ -1,0 +1,8 @@
+type: component
+name: Foo
+category: widget
+description: Bar
+tags:
+    - wip
+icon: pen-field
+created: 2024-06-13T00:42:18.925Z
