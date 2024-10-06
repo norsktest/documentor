@@ -21,7 +21,7 @@ jobs:
         with:
           version: 9
 
-      - run: pnpm ci
+      - run: pnpm i
       - run: pnpm lint
 
   ci-test:
@@ -40,7 +40,7 @@ jobs:
           version: 9
 
 
-      - run: pnpm ci
+      - run: pnpm i
       - run: pnpm test --coverage
 
       - name: Upload coverage to codecov.io
@@ -69,7 +69,7 @@ jobs:
           rm -rf dist
           rm -rf build
 
-      - run: pnpm ci
+      - run: pnpm i
       - run: pnpm build
       - run: pnpm package
 
