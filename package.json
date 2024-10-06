@@ -24,8 +24,9 @@
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "svelte": "./dist/index.ts"
-        }
+            "svelte": "./dist/index.js"
+        },
+        "./documentor": "./src/lib/documentor/index.ts"
     },
     "files": [
         "dist",
