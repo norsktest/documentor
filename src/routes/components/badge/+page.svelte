@@ -1,10 +1,10 @@
 <script>
     import {code2html, Example} from "$lib/documentor";
     import { Badge } from "$lib/components/ui/badge";
-    import DocShell from "$lib/docshell/DocShell.svelte";
+    import DocShell from "$lib/documentor/docshell/DocShell.svelte";
     import component from "./component.yaml";
-    import Playground from '$lib/components/documentor/Playground.svelte'
-    import { prop } from '$lib/components/documentor/playground-props.svelte.js'
+    import Playground from '$lib/documentor/Playground.svelte'
+    import { prop } from '$lib/documentor/playground-props.svelte.ts'
 
 
     import BadgeVariants from "./examples/BadgeVariants.svelte";
@@ -12,12 +12,12 @@
 
     let playground_props = $state({
         text: prop('text', 'string', 'string', 'hello:world'),
-        variant: prop('variant', 'string', 'radio', 'info', [
-            'error', 'info', 'warning', 'primary', 'secondary', 'outline', 'light', 'dark'
+        variant: prop('variant', 'string', 'radio', 'default', [
+            'default', 'primary', 'secondary', 'outline', 'destructive'
         ]),
-        size: prop('size', 'string', 'radio', 'xl', [
-            'xs', 'sm', 'lg', 'xl'
-        ]),
+        // size: prop('size', 'string', 'radio', 'xl', [
+        //     'xs', 'sm', 'lg', 'xl'
+        // ]),
     })
 </script>
 
@@ -25,34 +25,32 @@
 <DocShell {component}>
     <p>Badges are used to display a small amount of information in a visual way.</p>
 
-    <h3>Syntax</h3>
+    <h3 class="mt-4">Syntax</h3>
     <!-- eslint-disable-next-line -->
-    <pre>{@html code2html(`\
-        <Badge
-            {error|info|warning|primary|secondary|outline|light|dark}
-            {small|xs|lg|xl}/>
+    <pre class="code p-3 text-sm">{@html code2html(`\
+        import { Badge } from "$lib/components/ui/badge";
 
-        <Badge>hello</Badge>
-
-        <Badge text="hello:world" />
+        <Badge variant={defaul|primary|secondary|outline|destructive}>
+            {text}
+        </Badge>
 
         `)}</pre>
 
     <Playground name="Badge" bind:component_props={playground_props}>
-        <Badge bind:variant={playground_props.variant.value}
-               bind:text={playground_props.text.value} 
-               bind:size={playground_props.size.value} />
+        <Badge bind:variant={playground_props.variant.value}>
+               {playground_props.text.value}
+        </Badge>
     </Playground>
 
     <h3>Examples</h3>
 
-    <Example src={BadgeVariants_src} {component} path="examples/BadgeVariants.svelte">
+    <!-- <Example src={BadgeVariants_src} {component} path="examples/BadgeVariants.svelte">
         <BadgeVariants />
     </Example>
 
     <div class="center">
 
     </div>
-
+ -->
 
 </DocShell>

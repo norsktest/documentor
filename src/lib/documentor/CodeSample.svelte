@@ -16,7 +16,7 @@
 </script>
 
 
-<pre bind:this={pre} style={inlineStyle} class={className}
+<pre bind:this={pre} style={inlineStyle} class="code {className}"
     ><button title="copy to clipboard" type="button"
     onclick={copyToClipboard}
     >📋</button>{@render children?.()}</pre>
@@ -24,8 +24,8 @@
 <style>
     pre {
         position: relative;
-        background-color: var(--yellow-3);
-        color: var(--on-yellow-3);
+        /* background-color: var(--yellow-3);
+        color: var(--on-yellow-3); */
         padding: 1rem;
         border-radius: 0.25rem;
         overflow-x: auto;

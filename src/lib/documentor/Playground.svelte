@@ -12,13 +12,14 @@ It accepts the following props:
 
 -->
 <script>
-    import {
-        // Icon,
-        // RadioSelect,
-        Switch
-    } from 'grogui'
-    import CodeSample from '$lib/components/documentor/CodeSample.svelte'
-    import { code2html } from '$lib/components/documentor/utils.js'
+    // import {
+    //     // Icon,
+    //     // RadioSelect,
+    //     Switch
+    // } from 'grogui'
+    import * as Resizable from "$lib/components/ui/resizable";
+    import CodeSample from '$lib/documentor/CodeSample.svelte'
+    import { code2html } from '$lib/documentor/utils.ts'
     // import { JsonPre } from "grogui";
 
     let {
@@ -47,40 +48,41 @@ It accepts the following props:
 </script>
 
 
-<div class="my4 bordered p2 flex g3">
-    <div class="lhs">
+<Resizable.PaneGroup direction="horizontal" class="w-full border">
+    <Resizable.Pane defaultSize={60} class="p-2">
         
         <div class="component-output">
             <h3>{name}</h3>
-            <div class="p4 surface-1">
+            <div class="p-4 m-4 border border-radius-md">
                 <div class="mb2">
                     {@render children?.()}
                 </div>
             </div>
         </div>
 
-        <div class="component-code">
-            <h3>Code</h3>
+        <div class="component-code mt-3">
+            <h3 class="font-bold">Code</h3>
             <!-- eslint-disable-next-line -->
             <CodeSample>{@html code2html(code_sample)}</CodeSample>
         </div>
-    </div>
+    </Resizable.Pane>
     
+    <Resizable.Handle />
     
-    <div class="rhs">
-        <fieldset class="component-props container-b">
-            <legend class="props-legend h5">Props</legend>
-            <div class="grid grid-2-auto gx0 gy0">
+    <Resizable.Pane defaultSize={40} minSize={25} class="p-2">
+        <fieldset class="component-props container-b bg-secondary p-2 border border-radius-sm">
+            <legend class="props-legend text-xl px-2 bg-secondary border border-radius-sm">Props</legend>
+            <div class="grid grid-cols-auto grid-cols-2 gap-0">
                 {#each Object.entries(component_props) as [prop_name, prop_value]}
-                    <div class="propname py2 flex flex-x flex-ycenter flex-xbetween g2 border-bottom">
+                    <div class="propname py-1 flex flex-col content-start gap-2 border-bottom">
                         <span class="name fw9">{prop_name}</span>
-                        <small class="type shy">({prop_value.type})</small>
+                        <small class="type text-slate-500 text-sm block"><br>({prop_value.type})</small>
                     </div>
 
-                    <div class="border-bottom pl4 py2">
+                    <div class="border-bottom pl-4 py-2">
                         {#if prop_value.widget === 'radio'}
                             {#each prop_value.values as value}
-                                <label>
+                                <label class="flex gap-2">
                                     <input type="radio" name={prop_name} value={value} bind:group={prop_value.value} />
                                     {value}
                                 </label>
@@ -127,19 +129,19 @@ It accepts the following props:
                 {/each}
             </div>
         </fieldset>
-    </div>
+    </Resizable.Pane>
 
-</div>
+</Resizable.PaneGroup>
 <!-- <JsonPre {component_props} /> -->
 
 <style lang="scss">
-    .lhs {
-        flex: 1;
-    }
+    // .lhs {
+    //     flex: 1;
+    // }
 
-    .props-legend {
-        background-color: var(--container-b-1);
-        border: 1px solid var(--border-color);
-        // border-bottom: none;
-    }
+    // .props-legend {
+    //     // background-color: var(--container-b-1);
+    //     border: 1px solid #999;
+    //     // border-bottom: none;
+    // }
 </style>

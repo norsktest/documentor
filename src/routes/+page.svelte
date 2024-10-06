@@ -11,53 +11,56 @@
 
 <Resizable.PaneGroup direction="horizontal" class="h-screen w-full">
     <Resizable.Pane defaultSize={90}>
-    <main class="documentor m-4">
-        <header class="mb-4">
-            <h1 class="text-2xl font-bold">documentor</h1>
-            <h2 class="text-xl">tagline</h2>
-        </header>
+        <div class="breadcrumbs text-gray-600 mx-4">breadcrumbs</div>
 
-        <p>There is a <tt>documentor</tt> command to help document grogui components.</p>
+        <main class="documentor m-4">
+            <header class="mb-4">
+                <h1 class="text-2xl font-bold">documentor</h1>
+                <h2 class="text-xl">tagline</h2>
+            </header>
 
-        <!-- eslint-disable-next-line -->
-        <pre class="bash">{@html highlight('adoc', dedent`
-            
-            🏠 srv/lib/tilly❱ documentor -h
-            Usage: y doc [options] <component>
+            <p>There is a <tt>documentor</tt> command to help document components.</p>
 
-            document a component
+            <!-- eslint-disable-next-line -->
+            <pre class="bash">{@html highlight('adoc', dedent`
+                
+                🏠 srv/lib/tilly❱ documentor -h
+                Usage: y doc [options] <component>
 
-            Options:
-            -c, --category <string>  Category of component (The headings on the left).
-            -s, --summary <string>   A one sentecy summary of the component.
-            -t, --tags <string>      Tags for component, can be ommitted (e.g. -t "fancy,aria:ok").
-            -i, --icon <string>      Icon for component (name of fontawesome icon)
-            -h, --help               display help for command
+                document a component
 
-        `)}
-        </pre>
-        <p>
-            The category is for future grouping of left menu. The description is shown in the left menu.
-            Icon is for the left menu icon here and should be a fontawsome name.
-        </p>
+                Options:
+                -c, --category <string>  Category of component (The headings on the left).
+                -s, --summary <string>   A one sentecy summary of the component.
+                -t, --tags <string>      Tags for component, can be ommitted (e.g. -t "fancy,aria:ok").
+                -i, --icon <string>      Icon for component (name of fontawesome icon)
+                -h, --help               display help for command
 
-        <p>Example:</p>
-        <!-- eslint-disable-next-line -->
-        <pre class="bash">{@html highlight('adoc', `
-            > documentor -c "container" -s "A card component" -t new -i "box" Card
-        `)}
-        </pre>
+            `)}
+            </pre>
+            <p>
+                The category is for future grouping of left menu. The description is shown in the left menu.
+                Icon is for the left menu icon here and should be a fontawsome name.
+            </p>
 
-        <p>Afterwards, just edit the <code>examples/Example01.svelte</code> file in the
-        generated component directory.</p>
+            <p>Example:</p>
+            <!-- eslint-disable-next-line -->
+            <pre class="bash">{@html highlight('adoc', `
+                > documentor -c "container" -s "A card component" -t new -i "box" Card
+            `)}
+            </pre>
 
-    </main>
-</Resizable.Pane>
-<Resizable.Handle withHandle />
-<Resizable.Pane defaultSize={20}>
-    <h1>ToC</h1>
-</Resizable.Pane>
+            <p>Afterwards, just edit the <code>examples/Example01.svelte</code> file in the
+            generated component directory.</p>
 
+        </main>
+    </Resizable.Pane>
+
+    <Resizable.Handle withHandle />
+
+    <Resizable.Pane defaultSize={20}>
+        <h1>ToC</h1>
+    </Resizable.Pane>
 </Resizable.PaneGroup>
 
 

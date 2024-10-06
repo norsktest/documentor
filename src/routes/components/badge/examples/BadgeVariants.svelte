@@ -1,5 +1,5 @@
 <script>
-    import { Badge } from "grogui";
+    import { Badge } from "$lib/components/ui/badge";
 </script>
 
 <Badge>hello</Badge>

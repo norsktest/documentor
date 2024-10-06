@@ -19,6 +19,7 @@
     import { ScrollArea } from "$lib/components/ui/scroll-area/index.ts";
     import { Badge } from "$lib/components/ui/badge";
     // import { Separator } from "$lib/components/ui/separator/index.ts";
+    import Icon from '$lib/documentor/icons/Icon.svelte'
 
     let {
         data,
@@ -36,44 +37,67 @@
 
     // const menu_size = '230px'
     let appshell = $state()
-    $effect(() => {
-        console.log("APPSHELL:effect", appshell.ctx.appshell_width)
-    })
+    // $effect(() => {
+    //     console.log("APPSHELL:effect", appshell.ctx.appshell_width)
+    // })
+
+    let menu_pane = $state()
+    let collapsed = $state(false)
+
+    const toggle_collapsed = () => {
+        collapsed = !collapsed
+        if (collapsed) {
+            console.log("collapsing")
+            menu_pane.collapse()
+        } else {
+            console.log("expanding")
+            menu_pane.expand()
+        }
+    }
 </script>
 
 <!--<StateSpy position="top-right" data={data}/>-->
-<Resizable.PaneGroup
-  direction="horizontal"
-  class="w-full"
->
-  <Resizable.Pane defaultSize={10} class="">
-    <ScrollArea class="h-screen">
-    <div class="flex flex-col">
-        {#each Object.keys(data.categories) as category}
-            <section class="p-4">
-                <h3 class="text-xl font-bold">{category}</h3>
-                {#each data.categories[category] as component}
-                    <div url={component.path} title={component.description} style="padding-right:var(--p3)">
-                        <!-- <Icon value={component.icon} thin /> -->
-                        <span>{component.name}</span>
-                        {#if (component.is_new) }
-                            <Badge>new</Badge>
-                        {/if}
-                    </div>
-                {/each}
-            </section>
-        {/each}
-    
-    </div>
-    <!-- <Separator /> -->
-    </ScrollArea>
-  </Resizable.Pane>
+<Resizable.PaneGroup direction="horizontal" class="w-full">
+    <Resizable.Pane defaultSize={15} class="relative"
+        bind:pane={menu_pane}
+        collapsible={true}
+        collapsedSize={1.5}
+        minSize={15}
+        onCollapse={() => collapsed = true}
+        onExpand={() => collapsed = false}>
 
-  <Resizable.Handle withHandle />
+        <button class="collapse-button" onclick={toggle_collapsed}><span>{collapsed ? '>' : '<'}</span></button>        
 
-  <Resizable.Pane defaultSize={75}>
-    {@render children?.()}
-  </Resizable.Pane>
+        <ScrollArea class="h-screen">
+        <div class="flex flex-col" class:hidden={collapsed}>
+            {#each Object.keys(data.categories) as category}
+                <section class="p-4">
+                    <h3 class="text-xl font-bold">{category}</h3>
+                    {#each data.categories[category] as component}
+                        <a href={component.path} title={component.description} style="padding-right:var(--p3)">
+                            <Icon name={component.icon} thin />
+                            <span>{component.name}</span>
+                            {#if (component.is_new) }
+                                <Badge>new</Badge>
+                            {/if}
+                        </a>
+                    {/each}
+                </section>
+            {/each}
+        
+        </div>
+        <!-- <Separator /> -->
+        </ScrollArea>
+    </Resizable.Pane>
+
+    <Resizable.Handle withHandle>
+        
+    </Resizable.Handle>
+
+    <Resizable.Pane defaultSize={75} class="relative">
+        <!-- <button class="font-bold p-1 border absolute left-0" onclick={toggle_collapsed}>{collapsed ? '>' : '<'}</button> -->
+        {@render children?.()}
+    </Resizable.Pane>
 
 </Resizable.PaneGroup>
 
@@ -171,6 +195,38 @@
         // --primary: 222.2 47.4% 11.2%;
         // --primary-foreground: 210 40% 98%;
     }
+
+    .collapse-button {
+        --size: 1.1em;
+        --fontsize: var(--size);
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: inline-flex;
+        align-items: baseline;
+        justify-content: center;
+        width: var(--size);
+        height: var(--size);
+        line-height: 1;
+        font-size: var(--fontsize);
+        font-weight: bold;
+        z-index: 1000;
+        border: 1px solid var(--bg-gray-400);
+        // border-radius: 50%;
+        padding: .5em;
+        margin: 4px 0;
+        background-color: #888;
+        color: white;
+
+        span {
+            aspect-ratio: 1;
+            display: inline-block;
+            position: relative;
+            top: -.55em;
+        }
+    }
+
+
     //.page :global(.gui-sidebar) {
     //    max-width: 300px;
     //    overflow: hidden;

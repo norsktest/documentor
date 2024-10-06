@@ -1,6 +1,7 @@
 # Documentor
 
 A Svelte component to create beautiful documentation websites.
+(very much a work in progress...)
 
 ---
 

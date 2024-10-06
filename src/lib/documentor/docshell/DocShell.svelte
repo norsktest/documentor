@@ -1,7 +1,9 @@
 <script>
     import {browser} from '$app/environment'
     // import {getContext} from 'svelte'
-    import {Icon, Badge} from 'grogui'
+    // import {Icon, Badge} from 'grogui'
+    import * as Resizable from "$lib/components/ui/resizable";
+    import Icon from '$lib/documentor/icons/Icon.svelte'
     import {Component} from '$lib/Component.js'
     // import Arguments from '$lib/Arguments.svelte'
     // import {Args} from '$lib/Args.svelte.js'
@@ -60,44 +62,48 @@
 
 </script>
 
-<div id="top" class="docshell">
-    <div id="content-{comp.slug}" class="container">
-        <h1 class="mb2" style="border-bottom: 5px solid red;">
-            <Icon value={comp.icon} thin />
-            {comp.name}
-            {#each comp.tags as tag}
-                {#if typeof tag === 'string'}
-                    <Badge sm text={tag} />
-                {/if}
-            {/each}
-        </h1>
+<Resizable.PaneGroup direction="horizontal" class="w-full">
+    <Resizable.Pane defaultSize={75}>
+        <div id="content-{comp.slug}" class="container pt-4">
+            <h1 class="mb2 text-4xl" style="border-bottom: 5px solid red;">
+                <Icon name={comp.icon} />
+                {comp.name}
+                {#each comp.tags as tag}
+                    {#if typeof tag === 'string'}
+                        <Badge sm text={tag} />
+                    {/if}
+                {/each}
+            </h1>
 
-        {@render children?.()}
+            {@render children?.()}
 
-    </div>
+        </div>
 
-    <!-- <div class="args">
-        <h2>Arguments</h2>
-        <pre>{JSON.stringify(component.args, null, 4)}</pre>
-        <Arguments args={args} />
-    </div> -->
-</div>
+        <!-- <div class="args">
+            <h2>Arguments</h2>
+            <pre>{JSON.stringify(component.args, null, 4)}</pre>
+            <Arguments args={args} />
+        </div> -->
+    </Resizable.Pane>
 
-<aside class:collapsed={toggle_aside}>
-    <button class="toggle" onclick={() => toggle_aside = !toggle_aside} aria-label="collapse">
-        <Icon value="chevron-right"/>
-    </button>
-    <div class="content">
-        <h3><a href="#top">On this page</a></h3>
-        <ul id="toc" data-testid="toc" class="toc" data-level="1">
-            {#each toclist as [level, id, text]}
-                <li>
-                    <a style="margin-left: {level * 20}px;" href={`#${id}`}>{text}</a>
-                </li>
-            {/each}
-        </ul>
-    </div>
-</aside>
+    <Resizable.Handle withHandle />
+
+    <Resizable.Pane defaultSize={15} class="relative pl-2">
+        <button class="toggle" onclick={() => toggle_aside = !toggle_aside} aria-label="collapse">
+            <Icon name="chevron-right"/>
+        </button>
+        <div class="content mt-8">
+            <h3><a href="#top">On this page</a></h3>
+            <ul id="toc" data-testid="toc" class="toc" data-level="1">
+                {#each toclist as [level, id, text]}
+                    <li>
+                        <a style="margin-left: {level * 20}px;" href={`#${id}`}>{text}</a>
+                    </li>
+                {/each}
+            </ul>
+        </div>
+    </Resizable.Pane>
+</Resizable.PaneGroup>
 
 <style lang="scss">
     :root {
@@ -116,6 +122,24 @@
     //    border-top: 3px solid rebeccapurple;
     //    min-height: 30vh;
     //}
+
+
+    .toggle {
+        border: 1px solid red;
+        border-radius: 50%;
+        position: absolute;
+        padding: 0;
+        font-size: 8px;
+        background-color: white;
+        aspect-ratio: 1;
+        width: 16px;
+        height: 16px;
+        left: 0;
+        top: 1rem;
+        // translate: -50%;
+        z-index: 1000;
+    }
+
     aside {
         position: fixed;
         top: 0;
@@ -137,20 +161,7 @@
             overflow-x: hidden;
         }
 
-        .toggle {
-            border: 1px solid red;
-            border-radius: 50%;
-            position: absolute;
-            padding: 0;
-            font-size: 8px;
-            background-color: white;
-            aspect-ratio: 1;
-            width: 16px;
-            height: 16px;
-            left: 0;
-            top: 1rem;
-            translate: -50%;
-        }
+
 
         &.collapsed {
             width: 1rem;
