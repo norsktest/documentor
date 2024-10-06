@@ -3,8 +3,8 @@
 import {component_list} from '$lib/server/components'
 import {Component} from '../lib/Component.js'
 
-export const load = event => {
-    let res = {}
+export const load = ({locals}) => {
+    const res = {}
     const clist = component_list()
     Object.entries(clist).forEach(([key, value]) => {
         const c = new Component(value.default)
@@ -15,7 +15,7 @@ export const load = event => {
     })
 
     return {
-        locals: event.locals,
+        locals,
         categories: res,
         hello: 'world',
     }

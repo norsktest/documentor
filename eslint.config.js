@@ -60,6 +60,7 @@ export default [
             '*.config.js',
             'src/**/*.test.*',
             'src/drizzle/*.d.ts',
+            'src/lib/components/ui/',
         ],
     },
 ]

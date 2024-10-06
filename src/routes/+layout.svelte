@@ -17,7 +17,8 @@
     import {setContext} from 'svelte'
     import * as Resizable from "$lib/components/ui/resizable";
     import { ScrollArea } from "$lib/components/ui/scroll-area/index.ts";
-    import { Separator } from "$lib/components/ui/separator/index.ts";
+    import { Badge } from "$lib/components/ui/badge";
+    // import { Separator } from "$lib/components/ui/separator/index.ts";
 
     let {
         data,
@@ -25,7 +26,7 @@
         children,
     } = $props()
 
-    let theme = $state(data.locals.theme)
+    // let theme = $state(data.locals.theme)
     let main_menu = $state({active: ''})
     setContext('main_menu', main_menu)
     setContext('icon_type', 'light')
@@ -33,7 +34,7 @@
     const root_url = typeof window !== 'undefined' ? window.location.origin : ''
     setContext('root_url', root_url)
 
-    const menu_size = '230px'
+    // const menu_size = '230px'
     let appshell = $state()
     $effect(() => {
         console.log("APPSHELL:effect", appshell.ctx.appshell_width)
@@ -56,7 +57,7 @@
                         <!-- <Icon value={component.icon} thin /> -->
                         <span>{component.name}</span>
                         {#if (component.is_new) }
-                            <Badge xs>new</Badge>
+                            <Badge>new</Badge>
                         {/if}
                     </div>
                 {/each}
