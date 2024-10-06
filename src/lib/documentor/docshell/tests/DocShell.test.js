@@ -3,7 +3,6 @@ import {expect, describe, test} from 'vitest'
 
 import DocShellTest from './DocShell.test.svelte'
 
-
 test('DocShell toc', async () => {
     render(DocShellTest)
 

@@ -1,5 +1,3 @@
-
-
 export class Prop {
     name = $state()
     type = $state()
@@ -20,7 +18,6 @@ export class Prop {
         }
         this.value = value
         this.values = values
-
     }
     toJSON() {
         return {
@@ -28,7 +25,7 @@ export class Prop {
             type: this.type,
             widget: this.widget,
             value: this.value,
-            values: this.values
+            values: this.values,
         }
     }
 }

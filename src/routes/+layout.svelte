@@ -2,6 +2,7 @@
     <title>Doc Site</title>
 </svelte:head>
 <script>
+    import '../app.css'
     // import 'styles/main.scss'
     // import {
     //     Icon, Sidebar, Badge, SidebarItem,
@@ -15,6 +16,8 @@
     // import ThemeSwitcher from '$components/ThemeSwitcher.svelte'
     import {setContext} from 'svelte'
     import * as Resizable from "$lib/components/ui/resizable";
+    import { ScrollArea } from "$lib/components/ui/scroll-area/index.ts";
+    import { Separator } from "$lib/components/ui/separator/index.ts";
 
     let {
         data,
@@ -38,43 +41,40 @@
 </script>
 
 <!--<StateSpy position="top-right" data={data}/>-->
-<div class="bg-indigo-200">
 <Resizable.PaneGroup
   direction="horizontal"
-  class="min-h-[200px] max-w-md rounded-lg border"
+  class="w-full"
 >
-  <Resizable.Pane defaultSize={10}>
-    <div class="flex h-full items-center justify-center p-6">
+  <Resizable.Pane defaultSize={10} class="">
+    <ScrollArea class="h-screen">
+    <div class="flex flex-col">
         {#each Object.keys(data.categories) as category}
-            <h3>{category}</h3>
-            {#each data.categories[category] as component}
-                <div url={component.path} title={component.description} style="padding-right:var(--p3)">
-                    <!-- <Icon value={component.icon} thin /> -->
-                    <span>{component.name}</span>
-                    {#if (component.is_new) }
-                        <Badge xs>new</Badge>
-                    {/if}
-                </div>
-            {/each}
+            <section class="p-4">
+                <h3 class="text-xl font-bold">{category}</h3>
+                {#each data.categories[category] as component}
+                    <div url={component.path} title={component.description} style="padding-right:var(--p3)">
+                        <!-- <Icon value={component.icon} thin /> -->
+                        <span>{component.name}</span>
+                        {#if (component.is_new) }
+                            <Badge xs>new</Badge>
+                        {/if}
+                    </div>
+                {/each}
+            </section>
         {/each}
     
     </div>
+    <!-- <Separator /> -->
+    </ScrollArea>
   </Resizable.Pane>
 
-  <Resizable.Handle withHandle class="border-r-2 border-indigo-500"/>
+  <Resizable.Handle withHandle />
 
   <Resizable.Pane defaultSize={75}>
-    <div class="flex h-full items-center justify-center p-6">
-      
-        <div class="container">
-            {@render children?.()}
-        </div>
-
-    </div>
+    {@render children?.()}
   </Resizable.Pane>
 
 </Resizable.PaneGroup>
-</div>
 
 
 
@@ -162,7 +162,7 @@
     {/snippet}
 </AppShell> -->
 
-<style lang="postcss">
+<style lang="scss">
     // @use "styles/scss/index.scss" as *;
     :root {
         box-sizing: border-box;
