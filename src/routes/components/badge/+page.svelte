@@ -42,15 +42,11 @@
         </Badge>
     </Playground>
 
-    <h3>Examples</h3>
+    <h3 class="mt-4">Examples</h3>
 
-    <!-- <Example src={BadgeVariants_src} {component} path="examples/BadgeVariants.svelte">
+    <Example src={BadgeVariants_src} {component} path="examples/BadgeVariants.svelte">
         <BadgeVariants />
     </Example>
 
-    <div class="center">
-
-    </div>
- -->
 
 </DocShell>

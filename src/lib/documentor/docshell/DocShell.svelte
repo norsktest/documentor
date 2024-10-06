@@ -2,6 +2,7 @@
     import {browser} from '$app/environment'
     // import {getContext} from 'svelte'
     // import {Icon, Badge} from 'grogui'
+    import {Badge} from "$lib/components/ui/badge";
     import * as Resizable from "$lib/components/ui/resizable";
     import Icon from '$lib/documentor/icons/Icon.svelte'
     import {Component} from '$lib/Component.js'
@@ -70,7 +71,7 @@
                 {comp.name}
                 {#each comp.tags as tag}
                     {#if typeof tag === 'string'}
-                        <Badge sm text={tag} />
+                        <Badge>{tag}</Badge>
                     {/if}
                 {/each}
             </h1>

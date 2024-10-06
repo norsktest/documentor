@@ -17,6 +17,7 @@ It accepts the following props:
     //     // RadioSelect,
     //     Switch
     // } from 'grogui'
+    import { Switch } from "$lib/components/ui/switch";
     import * as Resizable from "$lib/components/ui/resizable";
     import CodeSample from '$lib/documentor/CodeSample.svelte'
     import { code2html } from '$lib/documentor/utils.ts'
@@ -104,7 +105,7 @@ It accepts the following props:
                             {prop_value.value}
                         
                         {:else if prop_value.widget === 'switch'}
-                            <Switch bind:on={prop_value.value} />
+                            <Switch bind:checked={prop_value.value} />
                             {prop_value.value}
                         
                         {:else if prop_value.widget === 'color'}
