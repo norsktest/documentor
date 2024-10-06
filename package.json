@@ -1,6 +1,9 @@
 {
-	"name": "documentor",
-	"version": "0.0.1",
+	"name": "@norsktest/documentor",
+	"version": "1.0.0",
+	"description": "A Svelte component to create beautiful documentation websites.",
+	"author": "NorskTest",
+	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -24,7 +27,7 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^5.0.0-next.1"
+		"svelte": "^5.0.0-next.262"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.2.5",
