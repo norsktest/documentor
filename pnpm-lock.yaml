@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@sveltejs/kit':
+        specifier: ^2.6.2
+        version: 2.6.2(@sveltejs/vite-plugin-svelte@4.0.0-next.7(svelte@5.0.0-next.262)(vite@5.4.8(sass-embedded@1.79.4)))(svelte@5.0.0-next.262)(vite@5.4.8(sass-embedded@1.79.4))
       bits-ui:
         specifier: ^0.21.16
         version: 0.21.16(svelte@5.0.0-next.262)
@@ -39,9 +42,6 @@ importers:
       '@sveltejs/adapter-auto':
         specifier: ^3.2.5
         version: 3.2.5(@sveltejs/kit@2.6.2(@sveltejs/vite-plugin-svelte@4.0.0-next.7(svelte@5.0.0-next.262)(vite@5.4.8(sass-embedded@1.79.4)))(svelte@5.0.0-next.262)(vite@5.4.8(sass-embedded@1.79.4)))
-      '@sveltejs/kit':
-        specifier: ^2.6.2
-        version: 2.6.2(@sveltejs/vite-plugin-svelte@4.0.0-next.7(svelte@5.0.0-next.262)(vite@5.4.8(sass-embedded@1.79.4)))(svelte@5.0.0-next.262)(vite@5.4.8(sass-embedded@1.79.4))
       '@sveltejs/package':
         specifier: ^2.3.5
         version: 2.3.5(svelte@5.0.0-next.262)(typescript@5.6.2)
